@@ -1,0 +1,28 @@
+@startuml
+
+' skinparam maxMessageSize 150
+skinparam actorStyle awesome
+
+actor OGCWMTSClientSeed as "OGC WMTS Client (Seed)"
+actor OGCWMTSClientLeech as "OGC WMTS Client (Leech)"
+participant OGCWMTServer as "OGC WMT Service"
+participant TorrentServer as "Torrent Server"
+
+activate OGCWMTSClientSeed
+OGCWMTSClientSeed -> OGCWMTServer : Requesting tile raster data
+activate OGCWMTServer
+OGCWMTServer --> OGCWMTSClientSeed : OK
+deactivate OGCWMTServer
+
+OGCWMTSClientLeech -> TorrentServer : Requesting tile
+activate OGCWMTSClientLeech
+TorrentServer --> OGCWMTSClientLeech : OK, there is a seed
+TorrentServer -> OGCWMTSClientSeed : Requests WebRTC offer
+OGCWMTSClientSeed --> TorrentServer : WebRTC offer (Seed)
+TorrentServer -> OGCWMTSClientLeech : WebRTC offer (Seed)
+OGCWMTSClientLeech --> TorrentServer : WebRTC offer (Leech)
+TorrentServer ->  OGCWMTSClientSeed : WebRTC offer (Leech)
+OGCWMTSClientLeech <-> OGCWMTSClientSeed : ICE candidates checking
+OGCWMTSClientSeed -> OGCWMTSClientLeech : Binary data
+
+@enduml
