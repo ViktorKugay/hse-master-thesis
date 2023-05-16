@@ -8,7 +8,7 @@ actor OGCWMTSClientLeech as "OGC WMTS Client (Leech)"
 participant OGCWMTServer as "OGC WMT Service"
 participant TorrentServer as "Torrent Server"
 
-group Fetching And Seeding the Tile
+== Fetching And Seeding the Tile ==
 
 OGCWMTSClientSeed -> OGCWMTServer : Requesting the tile
 activate OGCWMTSClientSeed
@@ -21,14 +21,16 @@ TorrentServer --> OGCWMTSClientSeed : OK
 deactivate TorrentServer
 deactivate OGCWMTSClientSeed
 
-end
+== Leeching the Tile ==
 
-group Leeching the Tile 
+group Requesting Tile Seed
 
 OGCWMTSClientLeech -> TorrentServer : Requesting the tile
 activate TorrentServer
 activate OGCWMTSClientLeech
 TorrentServer --> OGCWMTSClientLeech : OK, there is a seed
+
+end
 
 group WebRTC Signaling
 
@@ -48,8 +50,6 @@ group Data Transmitting
 OGCWMTSClientSeed -> OGCWMTSClientLeech : Binary data
 deactivate OGCWMTSClientLeech
 deactivate OGCWMTSClientSeed
-
-end
 
 end
 
