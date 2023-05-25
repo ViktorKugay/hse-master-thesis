@@ -1,0 +1,28 @@
+@startuml
+
+skinparam actorStyle awesome
+skinparam defaultTextAlignment center
+
+agent HTTPA as "HTTP" <<Protocol>>
+agent HTTPB as "HTTP" <<Protocol>>
+agent HTTPC as "HTTP" <<Protocol>>
+agent HTTPD as "HTTP" <<Protocol>>
+
+component OGCWMTS as "OGC WMTS" <<Shared Service>>
+
+actor UserA as "User A"
+actor UserB as "User B"
+actor UserC as "User C"
+actor UserD as "User D"
+
+HTTPA -- UserA
+HTTPB -- UserB
+HTTPC -- UserC
+HTTPD -- UserD
+
+OGCWMTS <-- HTTPA
+OGCWMTS <-- HTTPB
+OGCWMTS <-- HTTPC
+OGCWMTS <-- HTTPD
+
+@enduml
