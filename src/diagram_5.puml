@@ -1,0 +1,37 @@
+@startuml
+
+' skinparam maxMessageSize 150
+skinparam actorStyle awesome
+skinparam defaultTextAlignment center
+
+agent HTTP <<Protocol>>
+
+agent WebRTCA as "WebRTC" <<Protocol>> 
+agent WebRTCB as "WebRTC" <<Protocol>>
+agent WebRTCC as "WebRTC" <<Protocol>>
+agent WebRTCD as "WebRTC" <<Protocol>>
+
+component OGCWMTS as "OGC WMTS" <<Shared Service>>
+
+actor UserA as "User A"
+actor UserB as "User B"
+actor UserC as "User C"
+actor UserD as "User D"
+
+OGCWMTS <-down- HTTP
+
+HTTP -down- UserA
+
+UserA <-right- WebRTCA
+WebRTCA -down-> UserB
+
+UserB <-down- WebRTCB
+WebRTCB -left-> UserC
+
+UserC <-left- WebRTCC
+WebRTCC -up-> UserD
+
+UserD <-up- WebRTCD
+WebRTCD -right-> UserA
+
+@enduml
