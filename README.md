@@ -10,7 +10,7 @@ During my research I proved that the integration of the modern decentralized Web
 
 This repository was published with the purpose of sharing my master thesis experience. The repository is structured as follows. 
 
-* [full-text](./full-text) - full text of the master thesis (published version)
+* [src](./src) - full text of the master thesis (published version)
 
 ## 🦾 Evaluation
 
